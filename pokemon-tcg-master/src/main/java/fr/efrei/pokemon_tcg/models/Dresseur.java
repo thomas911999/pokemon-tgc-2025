@@ -19,6 +19,8 @@ public class Dresseur {
 
 	private LocalDateTime deletedAt;
 
+	private LocalDateTime dateTirage;
+
 	@OneToMany
 	List<Carte> cartes = new ArrayList<Carte>();
 
@@ -71,5 +73,9 @@ public class Dresseur {
 
 	public void setCartes(List<Carte> cartes) {
 		this.cartes = cartes;
+	}
+
+	public void addCarte(Carte carte) {
+		cartes.add(carte);
 	}
 }

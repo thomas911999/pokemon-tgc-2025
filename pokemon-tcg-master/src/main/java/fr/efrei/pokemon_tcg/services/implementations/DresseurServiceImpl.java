@@ -58,12 +58,15 @@ public class DresseurServiceImpl implements IDresseurService {
 	@Override
 	public void tirageCarte(String uuid) {
 		Dresseur dresseur = findById(uuid);
-		List<Carte>	carteList = dresseur.getCartes();
-		for (int i = 0; i < 5; i++) {
-			Carte carte = carteService.create();
-			carteList.add(carte);
+		if (dresseur.getDateTirage() == null || !(dresseur.getDateTirage().toLocalDate().isEqual (LocalDateTime.now().toLocalDate()))) {
+			dresseur.setDateTirage(LocalDateTime.now());
 		}
-		dresseur.setCartes(carteList);
+		
+
+		List<Carte> carteList = carteService.genererCartes(5);
+		for (Carte carte : carteList) {
+			dresseur.addCarte(carte);
+		}
 		repository.save(dresseur);
 	}
 
