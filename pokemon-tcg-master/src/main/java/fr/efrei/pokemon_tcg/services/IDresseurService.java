@@ -15,5 +15,6 @@ public interface IDresseurService {
 	boolean update(String uuid, DresseurDTO dresseurDTO);
 	boolean delete(String uuid);
 
+	void tirageCarte(String uuid);
 	void capturerPokemon(String uuid, CapturePokemon capturePokemon);
 }

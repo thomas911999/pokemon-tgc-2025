@@ -2,9 +2,11 @@ package fr.efrei.pokemon_tcg.services.implementations;
 
 import fr.efrei.pokemon_tcg.dto.CapturePokemon;
 import fr.efrei.pokemon_tcg.dto.DresseurDTO;
+import fr.efrei.pokemon_tcg.models.Carte;
 import fr.efrei.pokemon_tcg.models.Dresseur;
 import fr.efrei.pokemon_tcg.models.Pokemon;
 import fr.efrei.pokemon_tcg.repositories.DresseurRepository;
+import fr.efrei.pokemon_tcg.services.ICarteService;
 import fr.efrei.pokemon_tcg.services.IDresseurService;
 import fr.efrei.pokemon_tcg.services.IPokemonService;
 import org.springframework.stereotype.Service;
@@ -17,10 +19,13 @@ public class DresseurServiceImpl implements IDresseurService {
 
 	private final DresseurRepository repository;
 	private final IPokemonService pokemonService;
-	public DresseurServiceImpl(DresseurRepository repository, PokemonServiceImpl pokemonService) {
+	private final ICarteService carteService;
+
+	public DresseurServiceImpl(DresseurRepository repository, PokemonServiceImpl pokemonService, ICarteService carteService) {
 		this.repository = repository;
 		this.pokemonService = pokemonService;
-	}
+        this.carteService = carteService;
+    }
 
 	@Override
 	public List<Dresseur> findAll() {
@@ -39,12 +44,26 @@ public class DresseurServiceImpl implements IDresseurService {
 		repository.save(dresseur);
 	}
 
+
+
 	@Override
 	public void create(DresseurDTO dresseurDTO) {
 		Dresseur dresseur = new Dresseur();
 		dresseur.setNom(dresseurDTO.getNom());
 		dresseur.setPrenom(dresseurDTO.getPrenom());
 		dresseur.setDeletedAt(null);
+		repository.save(dresseur);
+	}
+
+	@Override
+	public void tirageCarte(String uuid) {
+		Dresseur dresseur = findById(uuid);
+		List<Carte>	carteList = dresseur.getCartes();
+		for (int i = 0; i < 5; i++) {
+			Carte carte = carteService.create();
+			carteList.add(carte);
+		}
+		dresseur.setCartes(carteList);
 		repository.save(dresseur);
 	}
 
@@ -60,4 +79,6 @@ public class DresseurServiceImpl implements IDresseurService {
 		repository.save(dresseur);
 		return true;
 	}
+
+
 }

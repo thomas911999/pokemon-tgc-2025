@@ -47,6 +47,14 @@ public class DresseurController {
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
+	@PatchMapping("/{uuid}/tirage")
+	public ResponseEntity<?> tirage(
+			@PathVariable String uuid
+	) {
+		dresseurService.tirageCarte(uuid);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
+
 	@PatchMapping("/{uuid}/acheter")
 	public ResponseEntity<?> acheter() {
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);

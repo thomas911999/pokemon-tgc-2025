@@ -32,7 +32,7 @@ public class AttackServiceImpl implements IAttackService {
         Attack attack = new Attack();
         attack.setNom(attackDTO.getNom());
         attack.setDamage(attackDTO.getDamage());
-        attack.setDescription(attack.getDescription());
+        attack.setDescription(attackDTO.getDescription());
         attackRepository.save(attack);
     }
 
@@ -42,7 +42,7 @@ public class AttackServiceImpl implements IAttackService {
         if (attack != null) {
             attack.setNom(attackDTO.getNom());
             attack.setDamage(attackDTO.getDamage());
-        attack.setDescription(attackDTO.getDescription());
+            attack.setDescription(attackDTO.getDescription());
             return true;
         }
         return false;

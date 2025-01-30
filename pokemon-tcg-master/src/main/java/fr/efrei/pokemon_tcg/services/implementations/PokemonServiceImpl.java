@@ -31,7 +31,7 @@ public class PokemonServiceImpl implements IPokemonService {
 		Pokemon pokemonACreer = new Pokemon();
 		pokemonACreer.setType(pokemon.getType());
 		pokemonACreer.setNom(pokemon.getNom());
-		pokemonACreer.setNiveau(pokemon.getNiveau());
+		pokemonACreer.setNiveau(pokemon.getPv());
 		repository.save(pokemonACreer);
 	}
 

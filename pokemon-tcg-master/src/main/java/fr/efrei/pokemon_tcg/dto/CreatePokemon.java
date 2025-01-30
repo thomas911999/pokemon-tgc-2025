@@ -10,7 +10,7 @@ public class CreatePokemon {
 	private String nom;
 
 	@Positive
-	private Integer niveau;
+	private Integer pv;
 
 	private TypePokemon type;
 
@@ -18,8 +18,8 @@ public class CreatePokemon {
 		return nom;
 	}
 
-	public Integer getNiveau() {
-		return niveau;
+	public Integer getPv() {
+		return pv;
 	}
 
 	public TypePokemon getType() {

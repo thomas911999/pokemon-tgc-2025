@@ -3,6 +3,7 @@ package fr.efrei.pokemon_tcg.models;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,6 +18,9 @@ public class Dresseur {
 	private String prenom;
 
 	private LocalDateTime deletedAt;
+
+	@OneToMany
+	List<Carte> cartes = new ArrayList<Carte>();
 
 	@OneToMany
 	List<Pokemon> pokemonList;
@@ -59,5 +63,13 @@ public class Dresseur {
 
 	public void setPokemonList(List<Pokemon> pokemonList) {
 		this.pokemonList = pokemonList;
+	}
+
+	public List<Carte> getCartes() {
+		return cartes;
+	}
+
+	public void setCartes(List<Carte> cartes) {
+		this.cartes = cartes;
 	}
 }
