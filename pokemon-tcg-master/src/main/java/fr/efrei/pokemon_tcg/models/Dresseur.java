@@ -21,8 +21,37 @@ public class Dresseur {
 
 	private LocalDateTime dateTirage;
 
+	private LocalDateTime dateEchange;
+
+	public LocalDateTime getDateEchange() {
+		return dateEchange;
+	}
+
+	public void setDateEchange(LocalDateTime dateEchange) {
+		this.dateEchange = dateEchange;
+	}
+
+	public LocalDateTime getDateTirage() {
+		return dateTirage;
+	}
+
+	public void setDateTirage(LocalDateTime dateTirage) {
+		this.dateTirage = dateTirage;
+	}
+
 	@OneToMany
 	List<Carte> cartes = new ArrayList<Carte>();
+
+	public List<Carte> getCartes_attaques() {
+		return cartes_attaques;
+	}
+
+	public void setCartes_attaques(List<Carte> cartes_attaques) {
+		this.cartes_attaques = cartes_attaques;
+	}
+
+	@OneToMany
+	List<Carte> cartes_attaques = new ArrayList<Carte>();
 
 	@OneToMany
 	List<Pokemon> pokemonList;
@@ -77,5 +106,10 @@ public class Dresseur {
 
 	public void addCarte(Carte carte) {
 		cartes.add(carte);
+	}
+
+	public Carte deleteCarte(Carte carte) {
+		cartes.remove(carte);
+		return carte;
 	}
 }

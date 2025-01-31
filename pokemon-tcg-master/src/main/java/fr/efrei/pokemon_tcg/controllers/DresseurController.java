@@ -2,6 +2,7 @@ package fr.efrei.pokemon_tcg.controllers;
 
 import fr.efrei.pokemon_tcg.dto.CapturePokemon;
 import fr.efrei.pokemon_tcg.dto.DresseurDTO;
+import fr.efrei.pokemon_tcg.dto.Echange_interne;
 import fr.efrei.pokemon_tcg.models.Dresseur;
 import fr.efrei.pokemon_tcg.services.ICarteService;
 import fr.efrei.pokemon_tcg.services.IDresseurService;
@@ -30,9 +31,21 @@ public class DresseurController {
 		return new ResponseEntity<>(dresseurService.findAll(), HttpStatus.OK);
 	}
 
+	@GetMapping("/{uuid}/init")
+	public ResponseEntity<?> init(@PathVariable String uuid) {
+		dresseurService.init_deck_attack(uuid);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+
 	@PostMapping
 	public ResponseEntity<?> create(@RequestBody DresseurDTO dresseurDTO) {
 		dresseurService.create(dresseurDTO);
+		return new ResponseEntity<>(HttpStatus.CREATED);
+	}
+
+	@PostMapping("/{uuid}/interne")
+	public ResponseEntity<?> echange_interne(@PathVariable String uuid, @RequestBody Echange_interne echange_interne) {
+		dresseurService.echange_interne(uuid, echange_interne);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 
@@ -55,7 +68,6 @@ public class DresseurController {
 	public ResponseEntity<?> tirage(
 			@PathVariable String uuid
 	) {
-		
 		dresseurService.tirageCarte(uuid);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
